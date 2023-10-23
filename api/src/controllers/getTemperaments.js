@@ -1,15 +1,19 @@
-const { Temperaments } = require("../db");
+const { Temperament } = require("../db");
+const axios = require ('axios')
+const URL = `https://api.thedogapi.com/v1/breeds`
+
+
 
 const getTemperaments = async (req, res) => {
   try {
-    // Realizar una solicitud a la API que contiene la información de los perros.
-    const response = await fetch(`https://api.thedogapi.com/v1/breeds`);
+    // Realizar una solicitud GET a la API que contiene la información de los perros.
+    const response = await axios.get(URL);
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error("Error al obtener datos de la API");
     }
 
-    const data = await response.json();
+    const data = response.data;
 
     // Extrae los temperamentos únicos
     const uniqueTemperaments = Array.from(
@@ -26,26 +30,25 @@ const getTemperaments = async (req, res) => {
     //const uniqueTemperaments = allTemperaments.filter((temperament, index, array) => array.indexOf(temperament) === index);
 
     // Crea un registro en la base de datos por cada temperamento único
-    uniqueTemperaments.forEach((temperamentName) => {
-      Temperaments.create({ name: temperamentName })
-        .then((temperament) => {
-          console.log(`Se ha creado el temperamento: ${temperament.name}`);
-        })
-        .catch((error) => {
-          console.error(
-            `Error al crear el temperamento: ${temperamentName}`,
-            error
-          );
+    for (const temperamentName of uniqueTemperaments) {
+      try {
+        const temperament = await Temperament.create({
+          name: temperamentName,
         });
-    });
+        console.log(`Se ha creado el temperamento: ${temperament.name}`);
+      } catch (error) {
+        console.error(
+          `Error al crear el temperamento: ${temperamentName}`,
+          error
+        );
+      }
+    }
 
     // Una vez que los temperamentos se han guardado en la base de datos, los obtienes y los envías como respuesta al cliente
-    const temperamentsFromDatabase = await Temperaments.findAll();
+    const temperamentsFromDatabase = await Temperament.findAll();
 
     res.status(200).json(temperamentsFromDatabase);
-
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Error en el servidor" });
   }
 };

@@ -1,7 +1,7 @@
 const { Dog } = require("../db");
-const axios = require ('axios')
-const URL = `https://api.thedogapi.com/v1/breeds`
+const axios = require("axios");
 
+const URL = `https://api.thedogapi.com/v1/breeds`;
 
 const getDogs = async (req, res) => {
   try {
@@ -12,27 +12,31 @@ const getDogs = async (req, res) => {
     if (response.status === 200) {
       const data = response.data;
 
-       // Transformar los datos de la API en el formato deseado para el modelo Dogs
+      // Transformar los datos de la API en el formato deseado para el modelo Dogs
       const dogsData = data.map((dog) => ({
-        ID: dog.id,
-        imagen: dog.reference_image_id,
-        altura: dog.height.metric,
-        peso: dog.weight.metric,
-        anos_vida: dog.life_span,
+        id: dog.id,
+        name: dog.name,
+        image: dog.reference_image_id,
+        height: dog.height.metric,
+        weight: dog.weight.metric,
+        life_span: dog.life_span,
+        created: false, //traído de la API
       }));
 
-      // Guardar los datos de las razas de perros en la base de datos
-      const createdDogs = await Dog.bulkCreate(dogsData);
+      // Consultar todas las razas de perros en la base de datos
+      const dbDogs = await Dog.findAll();
 
-      // Responder con los datos de las razas de perros creados en la base de datos
-      res.status(200).json(createdDogs);
+      // Combinar los datos de la API y los datos de la base de datos
+      const allDogs = [...dbDogs, ...dogsData];
+
+      // Responder con los datos de todas las razas de perros
+      res.status(200).json(allDogs);
     } else {
       // Manejar cualquier otro código de estado de respuesta aquí
-      res.status(500).json({ error: 'Error al obtener los datos de razas de perros' });
+      res.status(500).json({ error: "Error al obtener los datos de razas de perros" });
     }
   } catch (error) {
-    console.error('Error al obtener y guardar los datos de razas de perros:', error);
-    res.status(500).json({ error: 'Error al obtener los datos de razas de perros' });
+    res.status(500).json({ error: "Error al obtener los datos de razas de perros" });
   }
 };
 

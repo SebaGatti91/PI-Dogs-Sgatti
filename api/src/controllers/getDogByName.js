@@ -1,5 +1,8 @@
 const axios = require("axios");
-const URL = `https://api.thedogapi.com/v1/breeds`;
+const { Dog } = require("../db");
+const { Op } = require("sequelize");
+
+const URL = "https://api.thedogapi.com/v1/breeds";
 
 const getDogByName = async (req, res) => {
   try {
@@ -12,15 +15,27 @@ const getDogByName = async (req, res) => {
     if (response.status === 200) {
       const data = response.data;
 
-      // Filtrar las razas de perros que coinciden con el nombre (insensible a mayúsculas y minúsculas)
-      const filteredBreeds = data.filter((breed) =>
-        breed.name.toLowerCase().includes(name.toLowerCase())
+      // Filtrar las razas de perros que comienzan con el nombre especificado (insensible a mayúsculas y minúsculas)
+      const apiFilteredBreeds = data.filter((breed) =>
+        breed.name.toLowerCase().startsWith(name.toLowerCase())
       );
 
-      if (filteredBreeds.length > 0) {
-        res.status(200).json(filteredBreeds);
+      // Buscar en la base de datos por nombre
+      const dbFilteredBreeds = await Dog.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `${name}%`, // Búsqueda insensible a mayúsculas y minúsculas
+          },
+        },
+      });
+
+      // Combinar los resultados de la API y la base de datos
+      const allFilteredBreeds = [...apiFilteredBreeds, ...dbFilteredBreeds];
+
+      if (allFilteredBreeds.length > 0) {
+        res.status(200).json(allFilteredBreeds);
       } else {
-        return res.status(404).send("Not Found");
+        return res.status(404).send("Raza no encontrada");
       }
     }
   } catch (error) {

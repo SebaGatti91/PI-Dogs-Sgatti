@@ -9,13 +9,9 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue:DataTypes.UUIDV4
    },
-    name: {
+    temperament: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    created: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
     }
   }, {
     timestamps: false 

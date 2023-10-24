@@ -32,11 +32,11 @@ const getDogs = async (req, res) => {
       // Responder con los datos de todas las razas de perros
       res.status(200).json(allDogs);
     } else {
-      // Manejar cualquier otro código de estado de respuesta aquí
+   
       res.status(500).json({ error: "Error al obtener los datos de razas de perros" });
     }
   } catch (error) {
-    res.status(500).json({ error: "Error al obtener los datos de razas de perros" });
+    res.status(500).send(error.message);
   }
 };
 

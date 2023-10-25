@@ -14,7 +14,7 @@ const postDog = async (req, res) => {
     const [dog, dogCreated] = await Dog.findOrCreate({
       where: { name }, // Búsqueda basada en el nombre
       defaults: {
-        temperament,
+        name,
         image,
         height,
         weight,

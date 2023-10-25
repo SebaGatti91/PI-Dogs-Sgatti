@@ -23,7 +23,8 @@ const getTemperaments = async (req, res) => {
       const temperamentsArray = Array.from(uniqueTemperaments);
 
       for (const temperament of temperamentsArray) {
-        // Busca el temperamento en la base de datos por su nombre
+
+        // Busca el temperamento en la base de datos por su nombre (puedo reemplazar por bulk create)
         await Temperament.findOrCreate({
           where: { temperament: temperament },
           defaults: {

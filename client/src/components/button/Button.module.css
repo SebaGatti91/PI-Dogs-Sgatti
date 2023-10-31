@@ -1,0 +1,4 @@
+.button {
+  position: relative; /* Importante: agregar una posición relativa sino lo tapa el back*/
+  z-index: 1;
+}

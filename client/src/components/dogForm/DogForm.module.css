@@ -1,0 +1,19 @@
+/* Estilo para el área desplazable */
+.scrollableList {
+    max-height: 200px; /* Altura máxima que se mostrará antes de habilitar el desplazamiento vertical */
+    overflow-y: auto; /* Habilita el desplazamiento vertical cuando el contenido excede la altura máxima */
+    border: 1px solid #ccc; /* Borde para el área desplazable (puedes personalizarlo) */
+    padding: 10px; /* Espaciado interno (puedes ajustarlo según tu preferencia) */
+    background-color: #f7f7f7; /* Color de fondo (puedes cambiarlo) */
+  }
+  
+  /* Estilo para los checkboxes */
+  .scrollableList input[type="checkbox"] {
+    margin-right: 5px; /* Espaciado a la derecha de los checkboxes (puedes personalizarlo) */
+  }
+  
+  /* Estilo para las etiquetas de los checkboxes */
+  .scrollableList label {
+    display: block; /* Hace que las etiquetas ocupen toda la anchura disponible */
+    margin-bottom: 5px; /* Espaciado inferior entre etiquetas (puedes personalizarlo) */
+  }

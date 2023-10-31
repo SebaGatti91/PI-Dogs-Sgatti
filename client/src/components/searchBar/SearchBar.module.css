@@ -1,0 +1,16 @@
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative; /* Importante: agregar una posición relativa sino lo tapa el back*/
+    z-index: 1; 
+  }
+  
+  input[type="search"] {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  

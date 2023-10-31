@@ -48,7 +48,8 @@ const getDogById = async (req, res) => {
         const temperamentNames = dog.Temperaments.map(
           (temp) => temp.temperament
         ).join(", "); // filtro y separo por comas
-
+      
+        //Devo crear uno nuevo para borrar el parametro Temperaments
         const dbDog = {
           id: dog.id,
           name: dog.name,

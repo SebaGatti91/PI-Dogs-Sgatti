@@ -14,7 +14,7 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 router.get('/temperaments', getTemperaments)
 router.get('/dogs', getDogs);
-router.get('/dogs/name', getDogByName);
+//router.get('/dogs/name', getDogByName); se reemplazo por una sola bsuqueda en dogs
 router.get('/dogs/:idRaza', getDogById);
 router.post('/dogs/', postDog);
 

@@ -1,19 +1,95 @@
-/* Estilo para el área desplazable */
+/* Estilos para el contenedor principal */
+.home-page {
+  background-color: beige;
+  padding: 30px;
+}
+
+/* Estilos para la grid de cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* Estilos para la lista de temperamentos */
 .scrollableList {
-    max-height: 200px; /* Altura máxima que se mostrará antes de habilitar el desplazamiento vertical */
-    overflow-y: auto; /* Habilita el desplazamiento vertical cuando el contenido excede la altura máxima */
-    border: 1px solid #ccc; /* Borde para el área desplazable (puedes personalizarlo) */
-    padding: 10px; /* Espaciado interno (puedes ajustarlo según tu preferencia) */
-    background-color: #f7f7f7; /* Color de fondo (puedes cambiarlo) */
-  }
-  
-  /* Estilo para los checkboxes */
-  .scrollableList input[type="checkbox"] {
-    margin-right: 5px; /* Espaciado a la derecha de los checkboxes (puedes personalizarlo) */
-  }
-  
-  /* Estilo para las etiquetas de los checkboxes */
-  .scrollableList label {
-    display: block; /* Hace que las etiquetas ocupen toda la anchura disponible */
-    margin-bottom: 5px; /* Espaciado inferior entre etiquetas (puedes personalizarlo) */
-  }
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px; /* Añade un relleno interior a la lista */
+}
+
+/* Personaliza la apariencia de la barra de desplazamiento */
+.scrollableList::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollableList::-webkit-scrollbar-thumb {
+  background-color: #333;
+}
+
+.scrollableList::-webkit-scrollbar-track {
+  background-color: #ddd;
+}
+
+.scrollableList input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
+.scrollableList label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Estilos para los botones */
+button {
+  background-color: #0077cc;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 10px; /* Añade un margen derecho entre los botones */
+  margin-left: 10px; /* Añade un margen derecho entre los botones */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+
+}
+
+button:last-child {
+  margin-right: 0; /* Elimina el margen derecho del último botón */
+}
+
+button:hover {
+  background-color: #005599;
+}
+
+/* Estilos para los selects */
+select {
+  background-color: #f7f7f7;
+  color: #333;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px; 
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+select option {
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.page-info {
+  text-align: center; /* Centra el texto horizontalmente */
+  margin: 10px 0; /* Espacio entre la información de la página y el contenido */
+}

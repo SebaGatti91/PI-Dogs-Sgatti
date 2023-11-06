@@ -1,0 +1,29 @@
+/* Estilos generales de la página Detail */
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 400px; /* 20px arriba/abajo y 40px izquierda/derecha */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 2px solid #050505;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  /* Estilos para los títulos h3 */
+  
+  .detail h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  /* Estilos para la imagen */
+  
+  .detail img {
+    width: 300px;
+    height: 300px;
+    margin-top: 10px;
+    border-radius: 300px;
+  }

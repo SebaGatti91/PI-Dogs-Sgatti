@@ -1,4 +1,23 @@
+/* Button.module.css */
 .button {
-  position: relative; /* Importante: agregar una posición relativa sino lo tapa el back*/
-  z-index: 1;
+  background-color: #0077cc;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s;
+  margin-right: 10px; /* Agrega un margen derecho entre los botones */
+}
+
+/* Estilos para el último botón para eliminar el margen derecho */
+.button:last-child {
+  margin-right: 0;
+}
+
+.button:hover {
+  background-color: #005599;
 }

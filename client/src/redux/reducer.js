@@ -2,6 +2,7 @@ import {
   SEARCH,
   GETDOGS,
   GETTEMP,
+  GET_DOG_ID,
   SET_FILTER,
   SET_ORDER,
   SET_SOURCE,
@@ -15,6 +16,7 @@ const initialState = {
   originalDogs: [],
   filter: "Raza", // Valor predeterminado por nombre
   order: "Ascendente", // Valor predeterminado por nombre
+  dog_id: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +27,13 @@ const reducer = (state = initialState, action) => {
         dogs: action.payload, // copia de los resultados para manipular
         originalDogs: action.payload,
       };
+
+      case GET_DOG_ID:
+        return {
+          ...state,
+          dog_id: action.payload, // Almacena los resultados de la búsqueda
+        };
+  
 
     case SEARCH:
       return {
@@ -99,7 +108,7 @@ const reducer = (state = initialState, action) => {
       const source = action.payload; // Obtenemos el valor de la fuente desde el payload
 
       // Filtrar los perros según la fuente seleccionada
-      const filteredDogs = state.dogs.filter((dog) => {
+      const filteredDogs = state.originalDogs.filter((dog) => {
         if (source === "Todos") {
           return true; // Mostrar todos los perros
         } else if (source === "Database") {

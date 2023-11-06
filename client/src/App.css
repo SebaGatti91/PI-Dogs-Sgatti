@@ -1,8 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100vw; /* Ancho del 100% del viewport */
+  height: 100vh; /* Altura del 100% del viewport */
+  margin: 0;
   text-align: center;
+  border-top: none; /* Agrega esta línea para eliminar el borde superior */
 }
-
-

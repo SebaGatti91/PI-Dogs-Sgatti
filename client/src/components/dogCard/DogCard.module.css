@@ -1,0 +1,34 @@
+
+.card {
+    border: 5px solid #050505;
+    padding: 10px;
+    text-align: center;
+    width: 300px; /* Ancho fijo para la tarjeta */
+    height: 450px; /* Altura fija para la tarjeta */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f0f0f0; /* Color de fondo */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra en los bordes */
+    border-radius: 10px; /* Redondeado en las esquinas */
+  }
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+  }
+  
+  img {
+    height: 250px; /* Altura fija para la imagen en píxeles */
+    padding: 10px;
+    border-radius: 100px; /* Redondear los bordes de la imagen */
+  }
+
+/* Estilos para el enlace al detalle */
+.info a {
+  font-weight: bold; /* Pone el enlace en negrita */
+  color: blue; /* Cambia el color del enlace a azul */
+  text-decoration: none; /* Quita el subrayado del enlace */
+}

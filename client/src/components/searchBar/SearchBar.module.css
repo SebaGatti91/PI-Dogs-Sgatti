@@ -1,16 +1,27 @@
-
+/* SearchBar.module.css */
 .searchBar {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    position: relative; /* Importante: agregar una posición relativa sino lo tapa el back*/
-    z-index: 1; 
-  }
-  
-  input[type="search"] {
-    padding: 5px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
+  display: flex; /* Utiliza flexbox para centrar el campo de búsqueda horizontalmente */
+  align-items: center; /* Centra verticalmente el contenido */
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px; /* Espacio interno en el contenedor de la barra de búsqueda */
+  max-width: 400px;
+}
+
+input[type="search"] {
+  flex: 1; /* El campo de búsqueda se expandirá para ocupar el espacio restante en el contenedor */
+  border: none;
+  padding: 5px;
+  font-size: 16px;
+}
+
+input[type="search"]::placeholder {
+  color: #999; /* Color del texto de marcador de posición */
+}
+
+input[type="search"]:focus {
+  outline: none; /* Quita el contorno cuando el campo de búsqueda está enfocado */
+}
+
+

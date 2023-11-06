@@ -1,0 +1,12 @@
+/* Estilos para el contenedor de navegación */
+.navContainer {
+  background-image: url('./banner_perros.jpg'); /* Ruta de la imagen de fondo */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+  text-align: center; /* Centra el contenido horizontalmente */
+  padding: 15px;
+  border: 2px solid #505050;
+  border-radius: 10px;
+}
+

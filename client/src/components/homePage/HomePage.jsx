@@ -1,17 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllDogs, getTemperaments  } from "../../redux/actions";
+import { getAllDogs, getTemperaments } from "../../redux/actions";
+import {
+  setOrder,
+  setSource,
+  setFilter,
+  applyFilters,
+  temperamentFilter,
+} from "../../redux/actions";
 import DogCard from "../dogCard/DogCard";
 import styles from "./HomePage.module.css";
 import SearchBar from "../searchBar/SearchBar";
-import { setOrder, setSource, setFilter, applyFilters, temperamentFilter } from "../../redux/actions";
 
-const HomePage = ({onSearch}) => {
+const HomePage = ({ onSearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
   const dispatch = useDispatch();
 
-  //Permite manejar el cambio de página
+  // Permite manejar el cambio de página
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -20,16 +26,14 @@ const HomePage = ({onSearch}) => {
     dispatch(getAllDogs());
   }, []);
 
-
   useEffect(() => {
     dispatch(getTemperaments());
   }, []);
-  
+
   useEffect(() => {
     // Despacha la acción temperamentFilter con los temperamentos seleccionados
     dispatch(temperamentFilter(selectedTemperaments));
   }, [selectedTemperaments]); // Escucha los cambios en selectedTemperaments
-
 
   const handleTemperamentChange = (temperamentId) => {
     if (selectedTemperaments.includes(temperamentId)) {
@@ -60,7 +64,12 @@ const HomePage = ({onSearch}) => {
     dispatch(applyFilters());
   };
 
-  const { dogs, temperaments } = useSelector((state) => state); //selecciono todo mi estado global y me traigo dogs y temperaments por destructuring
+  const { dogs, temperaments } = useSelector((state) => state);
+
+  // Ordena los temperamentos alfabéticamente
+  const sortedTemperaments = temperaments.sort((a, b) =>
+    a.temperament.localeCompare(b.temperament)
+  );
 
   const dogsPerPage = 8;
   const indexOfLastDog = currentPage * dogsPerPage;
@@ -69,7 +78,7 @@ const HomePage = ({onSearch}) => {
   const totalPages = Math.ceil(dogs.length / dogsPerPage);
 
   return (
-    <div>
+    <div className="home-page">
       <SearchBar onSearch={onSearch} />
       <select onChange={handleOrderChange}>
         <option value="Ascendente">Ascendente</option>
@@ -87,7 +96,7 @@ const HomePage = ({onSearch}) => {
       </select>
       <h3>Selecciona temperamentos para filtrar:</h3>
       <div className={styles.scrollableList}>
-        {temperaments.map((temperament) => (
+        {sortedTemperaments.map((temperament) => (
           <div key={temperament.id}>
             <label>
               <input
@@ -116,21 +125,39 @@ const HomePage = ({onSearch}) => {
         >
           Siguiente
         </button>
+        <button
+      onClick={() => handlePageChange(1)}
+      disabled={currentPage === 1}
+    >
+      Primera
+    </button>
+    <button
+      onClick={() => handlePageChange(totalPages)}
+      disabled={currentPage === totalPages}
+    >
+      Última
+    </button>
       </div>
-      {dogs
-        ?.slice(indexOfFirstDog, indexOfLastDog)
-        .map(({ id, name, image, temperament, weight }) => {
-          return (
-            <DogCard
-              key={id}
-              id={id}
-              image={image}
-              name={name}
-              temperament={temperament}
-              weight={weight}
-            />
-          );
-        })}
+      <div className="page-info">
+        Página {currentPage} de {totalPages}
+      </div>
+      <div className={styles.grid}>
+        {dogs
+          ?.slice(indexOfFirstDog, indexOfLastDog)
+          .map(({ id, name, image, temperament, weight }) => {
+            return (
+              <div key={id}>
+                <DogCard
+                  id={id}
+                  name={name}
+                  image={image}
+                  temperament={temperament}
+                  weight={weight}
+                />
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };

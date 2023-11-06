@@ -21,8 +21,8 @@ const DogForm = () => {
 
   const handleChange = (event) => {
     setFormData({
-      ...formData, //copio mi estado actual
-      [event.target.name]: event.target.value, //igualo el estado name a mi input para controlar lo que el usuario escribe
+      ...formData,
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -40,7 +40,7 @@ const DogForm = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     const combinedData = {
       weight: `${formData.weight_min} - ${formData.weight_max}`,
       height: `${formData.height_min} - ${formData.height_max}`,
@@ -49,77 +49,100 @@ const DogForm = () => {
       image: formData.image,
       temperament: selectedTemperaments.join(", "),
     };
-    // Hacemos el dispatch
     dispatch(PostDog(combinedData));
     alert("Datos cargados");
   };
 
+  const sortedTemperaments = temperaments.sort((a, b) =>
+    a.temperament.localeCompare(b.temperament)
+  );
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <label htmlFor="name">Nombre: </label>
-      <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-      />
+      <div className={styles.formField}>
+        <label htmlFor="name">Nombre: </label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+      </div>
 
-      <label htmlFor="image">Imagen: </label>
-      <input
-        type="text"
-        name="image"
-        value={formData.image}
-        onChange={handleChange}
-      />
+      <div className={styles.formField}>
+        <label htmlFor="image">Imagen: </label>
+        <input
+          type="text"
+          name="image"
+          value={formData.image}
+          onChange={handleChange}
+        />
+      </div>
 
-      <label htmlFor="weight_max">Peso máximo: </label>
-      <input
-        type="number"
-        name="weight_max"
-        value={formData.weight_max}
-        onChange={handleChange}
-      />
+      <div className={styles.formField}>
+        <label htmlFor="weight_min">Peso mínimo: </label>
+        <input
+          type="number"
+          name="weight_min"
+          value={formData.weight_min}
+          onChange={handleChange}
+        />
+      </div>
 
-      <label htmlFor="weight_min">Peso mínimo: </label>
-      <input
-        type="number"
-        name="weight_min"
-        value={formData.weight_min}
-        onChange={handleChange}
-      />
+      <div className={styles.formField}>
+        <label htmlFor="weight_max">Peso máximo: </label>
+        <input
+          type="number"
+          name="weight_max"
+          value={formData.weight_max}
+          onChange={handleChange}
+        />
+      </div>
 
-      <label htmlFor="life_max">Edad máxima: </label>
-      <input
-        type="number"
-        name="life_max"
-        value={formData.life_max}
-        onChange={handleChange}
-      />
+      <div className={styles.formField}>
+        <label htmlFor="life_min">Edad mínima: </label>
+        <input
+          type="number"
+          name="life_min"
+          value={formData.life_min}
+          onChange={handleChange}
+        />
+      </div>
 
-      <label htmlFor="life_min">Edad mínima: </label>
-      <input
-        type="number"
-        name="life_min"
-        value={formData.life_min}
-        onChange={handleChange}
-      />
+      <div className={styles.formField}>
+        <label htmlFor="life_max">Edad máxima: </label>
+        <input
+          type="number"
+          name="life_max"
+          value={formData.life_max}
+          onChange={handleChange}
+        />
+      </div>
+      
+      <div className={styles.formField}>
+        <label htmlFor="height_min">Altura mínima: </label>
+        <input
+          type="number"
+          name="height_min"
+          value={formData.height_min}
+          onChange={handleChange}
+        />
+      </div>
 
-      <label htmlFor="height_max">Altura máxima: </label>
-      <input
-        type="number"
-        name="height_max"
-        value={formData.height_max}
-        onChange={handleChange}
-      />
-      <label htmlFor="height_min">Altura mínima: </label>
-      <input
-        type="number"
-        name="height_min"
-        value={formData.height_min}
-        onChange={handleChange}
-      />
+
+      <div className={styles.formField}>
+        <label htmlFor="height_max">Altura máxima: </label>
+        <input
+          type="number"
+          name="height_max"
+          value={formData.height_max}
+          onChange={handleChange}
+        />
+      </div>
+
+      <h3>Selecciona temperamentos para agregar:</h3>
       <div className={styles.scrollableList}>
-        {temperaments.map((temperament) => (
+        {sortedTemperaments.map((temperament) => (
           <div key={temperament.id}>
             <label>
               <input
@@ -135,7 +158,7 @@ const DogForm = () => {
           </div>
         ))}
       </div>
-      <button type="submit">Submmit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

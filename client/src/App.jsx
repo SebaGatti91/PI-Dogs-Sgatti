@@ -6,6 +6,7 @@ import HomePage from "./components/homePage/HomePage";
 import LandingPage from "./components/landingPage/LandingPage";
 import Nav from "./components/nav/Nav";
 import DogForm from "./components/dogForm/DogForm"
+import Detail from "./components/detail/Detail"
 
 /* hooks */
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -53,6 +54,7 @@ const onSearch = async (name) => {
         <Route path="/landing" element={<LandingPage onButtonClick={goToHome} />} />
         <Route path="/home" element={<HomePage onSearch={onSearch}/>} />
         <Route path="/add" element={<DogForm/>} />
+        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </div>
   );

@@ -1,4 +1,4 @@
-import { SEARCH, GETDOGS, GETTEMP, SET_FILTER, SET_ORDER, SET_SOURCE, APPLY_FILTERS, TEMPERAMENT_FILTER } from "./action-types";
+import { SEARCH, GETDOGS, GET_DOG_ID, GETTEMP, SET_FILTER, SET_ORDER, SET_SOURCE, APPLY_FILTERS, TEMPERAMENT_FILTER } from "./action-types";
 import axios from "axios";
 
 export const searchDogs = (name) => {
@@ -6,17 +6,18 @@ export const searchDogs = (name) => {
     try {
       // Realiza la búsqueda en función de name
       const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
-      const data = response.data;
-      return dispatch({
-        type: SEARCH,
-        payload: data,
-      });
+      if (response.status === 200) {
+        const data = response.data;
+        dispatch({
+          type:SEARCH,
+          payload: data,
+        });
+      }
     } catch (error) {
       throw Error(error.message);
     }
   };
 };
-
 
 export const getAllDogs = () => {
   const endpoint = "http://localhost:3001/dogs";
@@ -49,6 +50,25 @@ export const PostDog = (dog) => {
     }
   };
 };
+
+export const getDog = (id) => {
+  return async (dispatch) => { 
+    try {
+      // Realiza la búsqueda en función de name
+      const response = await axios.get(`http://localhost:3001/dogs/${id}`);
+      if (response.status === 200) {
+        const data = response.data;
+        dispatch({
+          type:GET_DOG_ID,
+          payload: data,
+        });
+      }
+    } catch (error) {
+      throw Error(error.message);
+    }
+  };
+};
+
 
 export const getTemperaments = () => {
   const endpoint = "http://localhost:3001/temperaments";

@@ -1,7 +1,7 @@
 const { Temperament } = require("../db");
 const axios = require("axios");
 
-const URL = `https://api.thedogapi.com/v1/breeds`;
+const URL = `https://api.thedogapi.com/v1/breeds?api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL`;
 
 const getTemperaments = async (req, res) => {
   try {

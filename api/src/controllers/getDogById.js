@@ -3,6 +3,8 @@ const { Dog, Temperament } = require("../db");
 
 const URL = "https://api.thedogapi.com/v1/breeds/";
 
+const api_key = "&api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL"
+
 const getDogById = async (req, res) => {
   const { idRaza } = req.params;
 
@@ -10,19 +12,23 @@ const getDogById = async (req, res) => {
     // Si idRaza es una cadena que contiene solo dígitos, asumimos que es un INTEGER
     // y buscamos en la API
     try {
-      const response = await axios.get(URL + idRaza);
+      const response = await axios.get(URL + idRaza + api_key);
       if (response.status === 200) {
         const data = response.data;
         if (Object.keys(data).length === 0) {
           return res.status(404).send("No existe ese ID");
         }
 
+         // Hacer una solicitud adicional para obtener la imagen del perro
+         const imageResponse = await axios.get(`https://api.thedogapi.com/v1/images/search?breed_ids=${idRaza}&api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL`);
+         const image = imageResponse.data[0]?.url || ''; // Usar una imagen por defecto si no hay URL
+
         const dog = {
           id: idRaza,
           name: data.name,
-          image: data.reference_image_id,
-          height: data.height,
-          weight: data.weight,
+          image,
+          height: data.height.metric,
+          weight: data.weight.metric,
           life_span: data.life_span,
           temperament: data.temperament,
         };

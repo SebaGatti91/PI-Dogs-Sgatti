@@ -2,7 +2,6 @@ const axios = require("axios");
 const { Dog, Temperament } = require("../db");
 
 const URL = "https://api.thedogapi.com/v1/breeds/";
-
 const api_key = "&api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL"
 
 const getDogById = async (req, res) => {

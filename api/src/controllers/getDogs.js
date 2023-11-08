@@ -3,35 +3,49 @@ const axios = require("axios");
 
 const URL = `https://api.thedogapi.com/v1/breeds?api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL`;
 
+let dogsApi = [];
+
 const getDogs = async (req, res) => {
   try {
-    // Hacer una solicitud a la API para obtener datos de razas de perros
-    const response = await axios.get(URL);
 
-    // Verificar si la solicitud se realizó con éxito (código de estado 200)
-    if (response.status !== 200) {
-      return res.status(500).json({ error: 'Error en la solicitud a la API' });
-    }
+      // Hacer una solicitud a la API solo si los datos de la API no se han cargado
+      const response = await axios.get(URL);
 
-    const data = response.data;
+      // Verificar si la solicitud se realizó con éxito (código de estado 200)
+      if (response.status !== 200) {
+        return res
+          .status(500)
+          .json({ error: "Error en la solicitud a la API" });
+      }
 
-    const dogsApi = await Promise.all(
-      data.map(async (dog) => {
-        const imageResponse = await axios.get(`https://api.thedogapi.com/v1/images/search?breed_ids=${dog.id}&api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL`);
-        const image = imageResponse.data[0]?.url || ''; // Usar una imagen por defecto si no hay URL
+      const data = response.data;
 
-        return {
-          id: dog.id,
-          name: dog.name,
-          image,
-          height: dog.height.metric,
-          weight: dog.weight.metric,
-          life_span: dog.life_span,
-          temperament: dog.temperament,
-          database: false
-        };
-      })
-    );
+      dogsApi = await Promise.all(
+        data.map(async (dog) => {
+          try {
+            const imageResponse = await axios.get(
+              `https://api.thedogapi.com/v1/images/search?breed_ids=${dog.id}&api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL`
+            );
+            const image = imageResponse.data[0]?.url || "https://as2.ftcdn.net/v2/jpg/04/60/03/13/1000_F_460031310_ObbCLA1tKrqjsHa7je6G6BSa7iAYBANP.jpg"; // Usar una imagen por defecto si no hay URL
+
+            return {
+              id: dog.id,
+              name: dog.name,
+              image,
+              height: dog.height.metric,
+              weight: dog.weight.metric,
+              life_span: dog.life_span,
+              temperament: dog.temperament,
+              database: false,
+            };
+          } catch (error) {
+            console.error(
+              `Error al obtener datos para el perro con ID ${dog.id}: ${error.message}`
+            );
+            return null;
+          }
+        })
+      );
 
     // Consultar todas las razas de perros en la base de datos incluyendo la relación "Temperament"
     const dbFilteredBreeds = await Dog.findAll({
@@ -51,7 +65,7 @@ const getDogs = async (req, res) => {
         weight: dog.weight,
         life_span: dog.life_span,
         temperament: temperamentNames,
-        database: true
+        database: true,
       };
     });
 
@@ -70,7 +84,9 @@ const getDogs = async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
-};
-
+}
 
 module.exports = { getDogs };
+
+
+

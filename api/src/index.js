@@ -5,6 +5,6 @@ const {conn} = require("./DB_connection")
 
 
 server.listen(PORT, () => {
-   conn.sync({force: false}); //force true dropea las tablas (para modo desarrollo)
+   conn.sync({force: true}); //force true dropea las tablas (para modo desarrollo)
    console.log('Server raised in port: ' + PORT);
 });

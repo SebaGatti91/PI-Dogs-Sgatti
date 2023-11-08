@@ -2,7 +2,6 @@ const { Router } = require('express');
 const { getTemperaments } = require('../controllers/getTemperaments')
 const { getDogs } = require('../controllers/getDogs');
 const { getDogById } = require('../controllers/getDogById');
-const { getDogByName } = require('../controllers/getDogByName');
 const { postDog } = require('../controllers/postDog');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -14,7 +13,6 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 router.get('/temperaments', getTemperaments)
 router.get('/dogs', getDogs);
-//router.get('/dogs/name', getDogByName); se reemplazo por una sola bsuqueda en dogs
 router.get('/dogs/:idRaza', getDogById);
 router.post('/dogs/', postDog);
 

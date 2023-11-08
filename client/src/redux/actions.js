@@ -1,4 +1,4 @@
-import { SEARCH, GETDOGS, GET_DOG_ID, GETTEMP, SET_FILTER, SET_ORDER, SET_SOURCE, APPLY_FILTERS, TEMPERAMENT_FILTER } from "./action-types";
+import { SEARCH, GETDOGS, GET_DOG_ID, GETTEMP, SET_FILTER, SET_ORDER, SET_SOURCE, APPLY_FILTERS, TEMPERAMENT_FILTER, CLEAR_DETAIL } from "./action-types";
 import axios from "axios";
 
 export const searchDogs = (name) => {
@@ -124,3 +124,10 @@ export const temperamentFilter = (temperaments) => {
     payload: temperaments,
   };
 };
+
+export const clearDetail = () => {
+  return {
+    type: CLEAR_DETAIL,
+    payload:{}
+  }
+}

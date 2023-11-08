@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostDog } from "../../redux/actions";
 import styles from "./DogForm.module.css";
+import validation from "../../validation";
 
 const DogForm = () => {
+  //Dispatch
   const dispatch = useDispatch();
-  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
-  const { temperaments } = useSelector((state) => state);
 
+  //Hooks
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     image: "",
@@ -19,6 +21,44 @@ const DogForm = () => {
     life_min: 0,
   });
 
+  const [errors, setErrors] = useState({});
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+
+  //State redux
+  const { temperaments } = useSelector((state) => state);
+
+  //Temperamentos
+  const sortedTemperaments = temperaments.sort((a, b) =>
+    a.temperament.localeCompare(b.temperament)
+  );
+
+  useEffect(() => {
+    if (
+      formData.name != "" ||
+      formData.image != "" ||
+      formData.weight_max != 0 ||
+      formData.weight_min != 0 ||
+      formData.height_max != 0 ||
+      formData.height_min != 0 ||
+      formData.life_max != 0 ||
+      formData.life_min != 0
+    ) {
+      const userValidated = validation(formData, selectedTemperaments);
+
+      // Verificar si hay errores
+      if (Object.keys(userValidated).length > 0) {
+        setIsSubmitDisabled(true); // Deshabilitar el botón de envío
+      } else {
+        setIsSubmitDisabled(false); // Habilitar el botón de envío si no hay errores
+      }
+
+      setErrors(userValidated);
+    }
+  }, [formData]);
+
+  //Events
+
+  //Adquisición datos formularios
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -26,6 +66,7 @@ const DogForm = () => {
     });
   };
 
+  //Selección temperamentos
   const handleTemperamentChange = (temperamentName) => {
     if (selectedTemperaments.includes(temperamentName)) {
       setSelectedTemperaments((prevSelected) =>
@@ -39,6 +80,22 @@ const DogForm = () => {
     }
   };
 
+  useEffect(() => {
+    const userValidated = validation(formData, selectedTemperaments);
+
+    setErrors(userValidated);
+    
+    // Verificar si hay errores
+    if (Object.keys(userValidated).length > 0) {
+      setIsSubmitDisabled(true); // Deshabilitar el botón de envío
+    } else {
+      setIsSubmitDisabled(false); // Habilitar el botón de envío si no hay errores
+    }
+  }, [selectedTemperaments]);
+
+  console.log(selectedTemperaments);
+
+  //Ordenamiento de datos para envío
   const handleSubmit = (event) => {
     event.preventDefault();
     const combinedData = {
@@ -53,10 +110,6 @@ const DogForm = () => {
     alert("Datos cargados");
   };
 
-  const sortedTemperaments = temperaments.sort((a, b) =>
-    a.temperament.localeCompare(b.temperament)
-  );
-
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formField}>
@@ -69,6 +122,8 @@ const DogForm = () => {
         />
       </div>
 
+      {<p style={{ color: "red" }}>{errors.name}</p>}
+
       <div className={styles.formField}>
         <label htmlFor="image">Imagen: </label>
         <input
@@ -79,8 +134,10 @@ const DogForm = () => {
         />
       </div>
 
+      {<p style={{ color: "red" }}>{errors.image}</p>}
+
       <div className={styles.formField}>
-        <label htmlFor="weight_min">Peso mínimo: </label>
+        <label htmlFor="weight_min">Peso Mínimo: </label>
         <input
           type="number"
           name="weight_min"
@@ -89,8 +146,10 @@ const DogForm = () => {
         />
       </div>
 
+      {<p style={{ color: "red" }}>{errors.weight_min}</p>}
+
       <div className={styles.formField}>
-        <label htmlFor="weight_max">Peso máximo: </label>
+        <label htmlFor="weight_max">Peso Máximo: </label>
         <input
           type="number"
           name="weight_max"
@@ -99,8 +158,10 @@ const DogForm = () => {
         />
       </div>
 
+      {<p style={{ color: "red" }}>{errors.weight_max}</p>}
+
       <div className={styles.formField}>
-        <label htmlFor="life_min">Edad mínima: </label>
+        <label htmlFor="life_min">Edad Mínima: </label>
         <input
           type="number"
           name="life_min"
@@ -109,8 +170,10 @@ const DogForm = () => {
         />
       </div>
 
+      {<p style={{ color: "red" }}>{errors.life_min}</p>}
+
       <div className={styles.formField}>
-        <label htmlFor="life_max">Edad máxima: </label>
+        <label htmlFor="life_max">Edad Máxima: </label>
         <input
           type="number"
           name="life_max"
@@ -118,9 +181,11 @@ const DogForm = () => {
           onChange={handleChange}
         />
       </div>
-      
+
+      {<p style={{ color: "red" }}>{errors.life_max}</p>}
+
       <div className={styles.formField}>
-        <label htmlFor="height_min">Altura mínima: </label>
+        <label htmlFor="height_min">Altura Mínima: </label>
         <input
           type="number"
           name="height_min"
@@ -129,9 +194,10 @@ const DogForm = () => {
         />
       </div>
 
+      {<p style={{ color: "red" }}>{errors.height_min}</p>}
 
       <div className={styles.formField}>
-        <label htmlFor="height_max">Altura máxima: </label>
+        <label htmlFor="height_max">Altura Máxima: </label>
         <input
           type="number"
           name="height_max"
@@ -140,7 +206,9 @@ const DogForm = () => {
         />
       </div>
 
-      <h3>Selecciona temperamentos para agregar:</h3>
+      {<p style={{ color: "red" }}>{errors.height_max}</p>}
+
+      <h3>Selecciona Temperamentos Para Agregar:</h3>
       <div className={styles.scrollableList}>
         {sortedTemperaments.map((temperament) => (
           <div key={temperament.id}>
@@ -158,7 +226,10 @@ const DogForm = () => {
           </div>
         ))}
       </div>
-      <button type="submit">Submit</button>
+      {<p style={{ color: "red" }}>{errors.temperaments}</p>}
+      <button type="submit" disabled={isSubmitDisabled}>
+        Submit
+      </button>
     </form>
   );
 };

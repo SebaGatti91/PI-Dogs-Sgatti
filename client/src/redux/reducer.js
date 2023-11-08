@@ -8,15 +8,19 @@ import {
   SET_SOURCE,
   APPLY_FILTERS,
   TEMPERAMENT_FILTER,
+  CLEAR_DETAIL,
 } from "./action-types";
 
 const initialState = {
   dogs: [],
+  dogs_search: [],
   temperaments: [],
   originalDogs: [],
+  dogs_source: [],
   filter: "Raza", // Valor predeterminado por nombre
   order: "Ascendente", // Valor predeterminado por nombre
-  dog_id: {}
+  dog_id: {},
+ 
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,40 +28,50 @@ const reducer = (state = initialState, action) => {
     case GETDOGS:
       return {
         ...state,
-        dogs: action.payload, // copia de los resultados para manipular
         originalDogs: action.payload,
+        dogs_search: action.payload,
+        dogs_source: action.payload, 
+        dogs: action.payload, // perros filtrados que renderizo
       };
 
-      case GET_DOG_ID:
+    case GET_DOG_ID:
+      return {
+        ...state,
+        dog_id: action.payload,
+      };
+
+      case CLEAR_DETAIL: {
         return {
           ...state,
-          dog_id: action.payload, // Almacena los resultados de la búsqueda
+          dog_id: action.payload,
         };
-  
+      }
 
     case SEARCH:
       return {
         ...state,
-        dogs: action.payload, // Almacena los resultados de la búsqueda
+        dogs: action.payload, 
+        dogs_search: action.payload, 
+        dogs_source: action.payload,
       };
 
     case GETTEMP:
       return {
         ...state,
-        temperaments: action.payload, // Almacena los resultados de los temperamentos
+        temperaments: action.payload, 
       };
 
     case SET_FILTER: {
       return {
         ...state,
-        filter: action.payload, // Almacena el filtrado
+        filter: action.payload, 
       };
     }
 
     case SET_ORDER: {
       return {
         ...state,
-        order: action.payload, // Almacena el filtrado
+        order: action.payload, 
       };
     }
 
@@ -107,8 +121,14 @@ const reducer = (state = initialState, action) => {
     case SET_SOURCE: {
       const source = action.payload; // Obtenemos el valor de la fuente desde el payload
 
+       // Filtra los perros en función de los temperamentos seleccionados
+       let filteredDogs = [];
+
+
       // Filtrar los perros según la fuente seleccionada
-      const filteredDogs = state.originalDogs.filter((dog) => {
+      filteredDogs = state.dogs_search.filter((dog) => {
+        // Verifica si dog.temperament existe y no es nulo o indefinido
+        if (dog) {
         if (source === "Todos") {
           return true; // Mostrar todos los perros
         } else if (source === "Database") {
@@ -116,31 +136,39 @@ const reducer = (state = initialState, action) => {
         } else if (source === "Api") {
           return !dog.database; // Mostrar solo los perros de la API
         }
+       }
       });
 
       return {
         ...state,
         dogs: filteredDogs,
+        dogs_source: filteredDogs
       };
     }
 
     case TEMPERAMENT_FILTER: {
       const selectedTemperaments = action.payload;
 
-      //console.log("Temperamentos seleccionados:", selectedTemperaments);
-
       // Filtra los perros en función de los temperamentos seleccionados
-      const filteredDogs = state.originalDogs.filter((dog) => {
-        // Separa la cadena de temperamentos en un array
-        const dogTemperaments = (dog.temperament || "")
-          .split(",")
-          .map((t) => t.trim());
+      let filteredDogs = [];
 
-        // Comprueba si todos los temperamentos seleccionados están en los temperamentos del perro
-        return selectedTemperaments.every((selectedTemperament) =>
-          dogTemperaments.includes(selectedTemperament)
-        );
-      });
+    
+        filteredDogs = state.dogs_source.filter((dog) => {
+          // Verifica si dog.temperament existe y no es nulo o indefinido
+          if (dog && dog.temperament) {
+            // Separa la cadena de temperamentos en un array
+            const dogTemperaments = dog.temperament
+              .split(",")
+              .map((t) => t.trim());
+
+            // Comprueba si todos los temperamentos seleccionados están en los temperamentos del perro
+            return selectedTemperaments.every((selectedTemperament) =>
+              dogTemperaments.includes(selectedTemperament)
+            );
+          }
+         
+        });
+      
 
       return {
         ...state,

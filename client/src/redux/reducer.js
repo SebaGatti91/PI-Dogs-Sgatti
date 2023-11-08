@@ -17,8 +17,8 @@ const initialState = {
   temperaments: [],
   originalDogs: [],
   dogs_source: [],
-  filter: "Raza", // Valor predeterminado por nombre
-  order: "Ascendente", // Valor predeterminado por nombre
+  filter: "Raza", 
+  order: "Ascendente", 
   dog_id: {},
  
 };
@@ -119,7 +119,7 @@ const reducer = (state = initialState, action) => {
     }
 
     case SET_SOURCE: {
-      const source = action.payload; // Obtenemos el valor de la fuente desde el payload
+      const source = action.payload; 
 
        // Filtra los perros en función de los temperamentos seleccionados
        let filteredDogs = [];
@@ -127,7 +127,7 @@ const reducer = (state = initialState, action) => {
 
       // Filtrar los perros según la fuente seleccionada
       filteredDogs = state.dogs_search.filter((dog) => {
-        // Verifica si dog.temperament existe y no es nulo o indefinido
+        // Verifica si dog existe y no es nulo o indefinido
         if (dog) {
         if (source === "Todos") {
           return true; // Mostrar todos los perros
@@ -154,7 +154,7 @@ const reducer = (state = initialState, action) => {
 
     
         filteredDogs = state.dogs_source.filter((dog) => {
-          // Verifica si dog.temperament existe y no es nulo o indefinido
+          // Verifica si dog y dog.temperament existe y no es nulo o indefinido
           if (dog && dog.temperament) {
             // Separa la cadena de temperamentos en un array
             const dogTemperaments = dog.temperament

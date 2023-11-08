@@ -14,7 +14,12 @@ export const searchDogs = (name) => {
         });
       }
     } catch (error) {
+      if (error.response && error.response.status === 404) {
+        // Aquí puedes mostrar un mensaje al usuario si se recibe un error 404
+        alert("No se encuentra esa raza de perro.");
+      } else {
       throw Error(error.message);
+     }
     }
   };
 };

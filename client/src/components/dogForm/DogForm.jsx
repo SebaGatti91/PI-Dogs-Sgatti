@@ -1,7 +1,11 @@
+//Estilos
+import styles from "./DogForm.module.css";
+//Hooks
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+//Actions
 import { PostDog } from "../../redux/actions";
-import styles from "./DogForm.module.css";
+//Archivo validación
 import validation from "../../validation";
 
 const DogForm = () => {
@@ -111,6 +115,7 @@ const DogForm = () => {
   
 
   return (
+    <div className={styles.backgroundContainer}>
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formField}>
         <label htmlFor="name">Nombre: </label>
@@ -229,8 +234,9 @@ const DogForm = () => {
         ))}
       </div>
       {<p style={{ color: "red" }}>{errors.temperaments}</p>}
-      <button type="submit" disabled={isSubmitDisabled}>Submit</button>
+      <button type="submit" disabled={isSubmitDisabled}>Agregar</button>
     </form>
+    </div>
   );
 };
 

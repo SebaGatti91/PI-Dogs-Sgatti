@@ -1,16 +1,15 @@
-/* style */
+//Estilos
 import "./App.css";
-
-/* componentes to render */
+//Hooks
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+//Components to render
 import HomePage from "./components/homePage/HomePage";
 import LandingPage from "./components/landingPage/LandingPage";
 import Nav from "./components/nav/Nav";
 import DogForm from "./components/dogForm/DogForm"
 import Detail from "./components/detail/Detail"
 
-/* hooks */
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 const App = () => {
   const navigate = useNavigate();
@@ -28,9 +27,7 @@ const App = () => {
     setAccess(true);
     navigate("/home");
   };
-
-
-  // Resto de tu componente con la paginación y demás
+  
 
   return (
     <div className="App">

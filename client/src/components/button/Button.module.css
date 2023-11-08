@@ -1,6 +1,6 @@
 /* Button.module.css */
 .button {
-  background-color: #0077cc;
+  background-color: rgb(240, 168, 60);
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -10,7 +10,7 @@
   text-decoration: none;
   display: inline-block;
   transition: background-color 0.3s;
-  margin-right: 10px; /* Agrega un margen derecho entre los botones */
+  margin-left: 50px; /* Agrega un margen derecho entre los botones */
 }
 
 /* Estilos para el último botón para eliminar el margen derecho */
@@ -19,5 +19,5 @@
 }
 
 .button:hover {
-  background-color: #005599;
+  background-color: #994000;
 }

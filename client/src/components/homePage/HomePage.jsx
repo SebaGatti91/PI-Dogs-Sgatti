@@ -1,5 +1,9 @@
+//Estilos
+import styles from "./HomePage.module.css";
+//Hooks
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+//Actions
 import { getAllDogs, getTemperaments } from "../../redux/actions";
 import {
   setOrder,
@@ -8,12 +12,11 @@ import {
   applyFilters,
   temperamentFilter,
 } from "../../redux/actions";
+//Components to render
 import DogCard from "../dogCard/DogCard";
-import styles from "./HomePage.module.css";
 import SearchBar from "../searchBar/SearchBar";
 
 const HomePage = () => {
-
   //Hooks
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
@@ -80,7 +83,6 @@ const HomePage = () => {
     dispatch(setSource(event.target.value));
   };
 
-  
   //Constantes para manejo de paginado
   const dogsPerPage = 8;
   const indexOfLastDog = currentPage * dogsPerPage;
@@ -89,7 +91,7 @@ const HomePage = () => {
   const totalPages = Math.ceil(dogs.length / dogsPerPage);
 
   return (
-    <div className="home-page">
+    <div className={styles.HomePage}>
       <SearchBar />
       <select onChange={handleOrderChange}>
         <option value="Ascendente">Ascendente</option>
@@ -169,6 +171,7 @@ const HomePage = () => {
             );
           })}
       </div>
+      <div class={styles.footer}>Creado Por: Sebastián A. Gatti</div>
     </div>
   );
 };

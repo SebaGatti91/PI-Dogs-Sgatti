@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './LandingPage.module.css'; // Importa los estilos como un objeto
+import styles from './LandingPage.module.css'; 
 
 const LandingPage = ({ onButtonClick }) => {
   return (

@@ -20,9 +20,9 @@ const validation = (formData, selectedTemperaments) => {
     errors.weight_min = "El peso mínimo debe estar entre 2 y 100.";
   }
   
-  if (formData.weight_min < formData.weight_max) {
-    errors.weight_max = "El peso máximo debe ser mayor que el peso mínimo.";
-  }
+  // if (formData.weight_min < formData.weight_max) {
+  //   errors.weight_max = "El peso máximo debe ser mayor que el peso mínimo.";
+  // }
 
   if (formData.life_max < 3 || formData.life_max > 20) {
     errors.life_max = "La esperanza de vida máxima debe estar entre 3 y 20 años.";
@@ -32,9 +32,9 @@ const validation = (formData, selectedTemperaments) => {
     errors.life_min = "La esperanza de vida mínima debe estar entre 3 y 20 años.";
   }
   
-  if (formData.life_min < formData.life_max) {
-    errors.life_max = "La esperanza de vida máxima debe ser mayor que la esperanza de vida mínima.";
-  }
+  // if (formData.life_min < formData.life_max) {
+  //   errors.life_max = "La esperanza de vida máxima debe ser mayor que la esperanza de vida mínima.";
+  // }
 
   if ( formData.height_min <  30) {
     errors.height_min = "La altura mínima deve ser de al menos 30 cm.";
@@ -44,9 +44,9 @@ const validation = (formData, selectedTemperaments) => {
     errors.height_max = "La altura máxima debe ser menor que 100 cm.";
   }
 
-  if (formData.height_min < formData.height_max) {
-    errors.height_max = "La altura máxima debe ser mayor que la altura mínima.";
-  }
+  // if (formData.height_min < formData.height_max) {
+  //   errors.height_max = "La altura máxima debe ser mayor que la altura mínima.";
+  // }
 
   if (selectedTemperaments.length == 0) {
     errors.temperaments = "Seleccione al menos un temperamento.";

@@ -27,10 +27,10 @@ const DogForm = () => {
   //State redux
   const { temperaments } = useSelector((state) => state);
 
-  //Temperamentos
+  //Temperamentos 
   const sortedTemperaments = temperaments.sort((a, b) =>
-    a.temperament.localeCompare(b.temperament)
-  );
+  a.temperament.localeCompare(b.temperament)
+);
 
   useEffect(() => {
     if (
@@ -42,7 +42,7 @@ const DogForm = () => {
       formData.height_min != 0 ||
       formData.life_max != 0 ||
       formData.life_min != 0
-    ) {
+    ){
       const userValidated = validation(formData, selectedTemperaments);
 
       // Verificar si hay errores
@@ -55,6 +55,7 @@ const DogForm = () => {
       setErrors(userValidated);
     }
   }, [formData]);
+
 
   //Events
 
@@ -82,18 +83,16 @@ const DogForm = () => {
 
   useEffect(() => {
     const userValidated = validation(formData, selectedTemperaments);
-
-    setErrors(userValidated);
     
-    // Verificar si hay errores
-    if (Object.keys(userValidated).length > 0) {
-      setIsSubmitDisabled(true); // Deshabilitar el botón de envío
-    } else {
-      setIsSubmitDisabled(false); // Habilitar el botón de envío si no hay errores
-    }
-  }, [selectedTemperaments]);
-
-  console.log(selectedTemperaments);
+    setErrors(userValidated);
+         // Verificar si hay errores
+         if (Object.keys(userValidated).length > 0) {
+          setIsSubmitDisabled(true); // Deshabilitar el botón de envío
+        } else {
+          setIsSubmitDisabled(false); // Habilitar el botón de envío si no hay errores
+        }
+    
+  }, [selectedTemperaments])
 
   //Ordenamiento de datos para envío
   const handleSubmit = (event) => {
@@ -109,6 +108,7 @@ const DogForm = () => {
     dispatch(PostDog(combinedData));
     alert("Datos cargados");
   };
+  
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -181,7 +181,7 @@ const DogForm = () => {
           onChange={handleChange}
         />
       </div>
-
+      
       {<p style={{ color: "red" }}>{errors.life_max}</p>}
 
       <div className={styles.formField}>
@@ -194,6 +194,7 @@ const DogForm = () => {
         />
       </div>
 
+      
       {<p style={{ color: "red" }}>{errors.height_min}</p>}
 
       <div className={styles.formField}>
@@ -206,6 +207,7 @@ const DogForm = () => {
         />
       </div>
 
+      
       {<p style={{ color: "red" }}>{errors.height_max}</p>}
 
       <h3>Selecciona Temperamentos Para Agregar:</h3>
@@ -227,9 +229,7 @@ const DogForm = () => {
         ))}
       </div>
       {<p style={{ color: "red" }}>{errors.temperaments}</p>}
-      <button type="submit" disabled={isSubmitDisabled}>
-        Submit
-      </button>
+      <button type="submit" disabled={isSubmitDisabled}>Submit</button>
     </form>
   );
 };

@@ -19,7 +19,6 @@ const postDog = async (req, res) => {
         height,
         weight,
         life_span,
-        created: true,
       },
     });
     if (!dogCreated) {

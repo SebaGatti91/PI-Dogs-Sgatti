@@ -62,7 +62,7 @@ const getDogById = async (req, res) => {
           height: dog.height,
           weight: dog.weight,
           life_span: dog.life_span,
-          temperaments: temperamentNames
+          temperament: temperamentNames
         }
 
         return res.status(200).json(dbDog);

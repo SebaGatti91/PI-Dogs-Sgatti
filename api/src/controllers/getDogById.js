@@ -20,7 +20,7 @@ const getDogById = async (req, res) => {
 
          // Hacer una solicitud adicional para obtener la imagen del perro
          const imageResponse = await axios.get(`https://api.thedogapi.com/v1/images/search?breed_ids=${idRaza}&api_key=live_39YXweJl9CiZXY2OoyUKa7Vv325IiKQqGKGCog9PiRvnsyoGJFNCQ2m9Uqu1SSyL`);
-         const image = imageResponse.data[0]?.url || ''; // Usar una imagen por defecto si no hay URL
+         const image = imageResponse.data[0]?.url || 'https://img.freepik.com/foto-gratis/aislado-feliz-sonriente-perro-fondo-blanco-retrato-4_1562-693.jpg'; //Imagen por defecto si no hay URL
 
         const dog = {
           id: idRaza,
@@ -39,6 +39,7 @@ const getDogById = async (req, res) => {
       return res.status(500).send(error.message);
     }
   } else {
+
     // Si idRaza no es un INTEGER, asumimos que es una STRING
     // y buscamos en la base de datos
     try {
@@ -48,13 +49,14 @@ const getDogById = async (req, res) => {
       });
 
       if (dog) {
+
         //Devemos acomodar los datos para agregar temperaments separados por coma
 
         const temperamentNames = dog.Temperaments.map(
           (temp) => temp.temperament
-        ).join(", "); // filtro y separo por comas
+        ).join(", "); 
       
-        //Devo crear uno nuevo para borrar el parametro Temperaments
+        //Devo crear un nuevo objeto para limpiar los elementos demas de temeprament
         const dbDog = {
           id: dog.id,
           name: dog.name,

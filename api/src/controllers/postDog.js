@@ -25,7 +25,7 @@ const postDog = async (req, res) => {
       return res.status(409).send("Ya existe esa raza de perro");
     }
 
-    // Recorre los temperamentos y agrégalos al perro
+    // Recorre los temperamentos y los agrega al perro
     for (const tempName of temperamentsArray) {
       // Buscar el temperamento por su nombre
       const foundTemperament = await Temperament.findOne({

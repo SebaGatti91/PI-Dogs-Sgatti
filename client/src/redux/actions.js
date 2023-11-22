@@ -15,7 +15,7 @@ export const searchDogs = (name) => {
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        // Aquí puedes mostrar un mensaje al usuario si se recibe un error 404
+        
         alert("No se encuentra esa raza de perro.");
       } else {
       throw Error(error.message);
@@ -51,7 +51,12 @@ export const PostDog = (dog) => {
         return response.data;
       }
     } catch (error) {
+      if (error.response && error.response.status === 409) {
+        
+        alert("Esa raza ya existe perro no creado");
+      } else {
       throw Error(error.message);
+     }
     }
   };
 };

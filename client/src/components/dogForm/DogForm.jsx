@@ -110,6 +110,20 @@ const DogForm = () => {
       temperament: selectedTemperaments.join(", "),
     };
     dispatch(PostDog(combinedData));
+    setFormData({
+      name : "" ,
+      image : "" ,
+      weight_max : 0 ,
+      weight_min : 0 ,
+      height_max : 0, 
+      height_min : 0 ,
+      life_max : 0 ,
+      life_min : 0
+     }
+    )
+
+    setSelectedTemperaments([])
+
     alert("Datos cargados");
   };
   

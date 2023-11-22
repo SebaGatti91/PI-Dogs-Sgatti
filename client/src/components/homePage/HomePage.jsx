@@ -45,6 +45,7 @@ const HomePage = () => {
   // Despacho la acción temperamentFilter con los temperamentos seleccionados
   useEffect(() => {
     dispatch(temperamentFilter(selectedTemperaments));
+    setCurrentPage(1)
   }, [selectedTemperaments]); // Escucha los cambios en selectedTemperaments
 
   //Handlers
@@ -76,11 +77,13 @@ const HomePage = () => {
   //Seteo de filtro
   const handleApplyFilters = () => {
     dispatch(applyFilters());
+    setCurrentPage(1)
   };
 
   //Filtro de fuente (Api o DB)
   const handleSourceChange = (event) => {
     dispatch(setSource(event.target.value));
+    setCurrentPage(1)
   };
 
   //Constantes para manejo de paginado

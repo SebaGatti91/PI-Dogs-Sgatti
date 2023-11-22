@@ -44,7 +44,7 @@ const postDog = async (req, res) => {
       await dog.addTemperament(foundTemperament);
     }
 
-    return res.status(200).send("Temperamento/s asociado");
+    return res.status(200).send("Perro creado");
   } catch (error) {
     return res.status(500).send(error.message);
   }

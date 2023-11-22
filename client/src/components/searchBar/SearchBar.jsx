@@ -3,7 +3,7 @@ import styles from "./SearchBar.module.css";
 import { useDispatch } from "react-redux"; // Asegúrate de importar useDispatch desde react-redux
 import { getAllDogs, searchDogs,setSource } from "../../redux/actions"; // Asegúrate de importar tus acciones de Redux
 
-const SearchBar = (source) => {
+const SearchBar = () => {
   const [name, setName] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const dispatch = useDispatch(); // Obtén la función de despacho de Redux

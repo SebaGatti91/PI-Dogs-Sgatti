@@ -27,8 +27,8 @@ const Detail = () => {
   return (
     <div className={styles.detail}>
       <h3>Id: {dog_id?.id}</h3>
-      <h3>Name: {dog_id?.name}</h3>
-      <h3>Altura: {dog_id?.height} m</h3>
+      <h3>Nombre: {dog_id?.name}</h3>
+      <h3>Altura: {dog_id?.height} cm</h3>
       <h3>Peso: {dog_id?.weight} kg</h3>
       <h3>Años de vida: {dog_id?.life_span}</h3>
       <h3>Temperamento: {dog_id?.temperament}</h3>

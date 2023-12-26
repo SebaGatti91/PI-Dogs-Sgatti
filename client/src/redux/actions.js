@@ -5,7 +5,7 @@ export const searchDogs = (name) => {
   return async (dispatch) => { 
     try {
       // Realiza la búsqueda en función de name
-      const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+      const response = await axios.get(`https://pi-dogs-sgatti-production.up.railway.app/dogs?name=${name}`);
       if (response.status === 200) {
         const data = response.data;
         dispatch({
@@ -25,7 +25,7 @@ export const searchDogs = (name) => {
 };
 
 export const getAllDogs = () => {
-  const endpoint = "http://localhost:3001/dogs";
+  const endpoint = "https://pi-dogs-sgatti-production.up.railway.app/dogs";
   return async (dispatch) => {
     try {
       const response = await axios.get(endpoint);
@@ -43,7 +43,7 @@ export const getAllDogs = () => {
 };
 
 export const PostDog = (dog) => {
-  const endpoint = "http://localhost:3001/dogs";
+  const endpoint = "https://pi-dogs-sgatti-production.up.railway.app/dogs";
   return async () => {
     try {
       const response = await axios.post(endpoint, dog);
@@ -65,7 +65,7 @@ export const getDog = (id) => {
   return async (dispatch) => { 
     try {
       // Realiza la búsqueda en función de name
-      const response = await axios.get(`http://localhost:3001/dogs/${id}`);
+      const response = await axios.get(`https://pi-dogs-sgatti-production.up.railway.app/dogs/${id}`);
       if (response.status === 200) {
         const data = response.data;
         dispatch({
@@ -81,7 +81,7 @@ export const getDog = (id) => {
 
 
 export const getTemperaments = () => {
-  const endpoint = "http://localhost:3001/temperaments";
+  const endpoint = "https://pi-dogs-sgatti-production.up.railway.app/temperaments";
   return async (dispatch) => {
     try {
       const response = await axios.get(endpoint);
